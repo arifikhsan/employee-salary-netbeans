@@ -65,14 +65,9 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="textFieldNama" min="-2" max="-2" attributes="0"/>
-                                          <Component id="textFieldNIP" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="comboBoxJabatan" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="comboBoxJabatan" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textFieldNIP" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
+                                  <Component id="textFieldNama" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -272,6 +267,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableGajiMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -287,11 +285,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Reset"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonResetActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonUpdate">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonDelete">
       <Properties>
@@ -305,6 +309,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Exit"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

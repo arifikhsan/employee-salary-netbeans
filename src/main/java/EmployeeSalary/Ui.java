@@ -6,12 +6,20 @@
 package EmployeeSalary;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author Arif Ikhsanudin
  */
 public class Ui extends javax.swing.JFrame {
+
+    public static final Integer NIP_COLUMN = 0;
+    public static final Integer NAMA_COLUMN = 1;
+    public static final Integer JABATAN_COLUMN = 2;
+    public static final Integer GAJI_POKOK_COLUMN = 3;
+    public static final Integer TRANSPORT_COLUMN = 4;
+    public static final Integer GAJI_BERSIH_COLUMN = 5;
 
     /**
      * Creates new form Ui
@@ -127,6 +135,11 @@ public class Ui extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableGaji.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableGajiMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableGaji);
 
         buttonSave.setText("Save");
@@ -137,8 +150,18 @@ public class Ui extends javax.swing.JFrame {
         });
 
         buttonReset.setText("Reset");
+        buttonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonResetActionPerformed(evt);
+            }
+        });
 
         buttonUpdate.setText("Update");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
 
         buttonDelete.setText("Delete");
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +171,11 @@ public class Ui extends javax.swing.JFrame {
         });
 
         jButton5.setText("Exit");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,12 +198,9 @@ public class Ui extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(textFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textFieldNIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(comboBoxJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(comboBoxJabatan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textFieldNIP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textFieldNama, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 43, Short.MAX_VALUE)
                                 .addComponent(buttonSave)
@@ -251,17 +276,17 @@ public class Ui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void textFieldNIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNIPActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_textFieldNIPActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tableGaji.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tableGaji.getModel();
+        model.removeRow(selectedRow);
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     private void comboBoxJabatanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxJabatanActionPerformed
-//        textFieldGajiPokok.setText("13");
-
-        System.out.println(comboBoxJabatan.getSelectedItem());
+//        System.out.println(comboBoxJabatan.getSelectedItem());
         if (comboBoxJabatan.getSelectedItem() == "Supervisor") {
             textFieldGajiPokok.setText("20");
         } else if (comboBoxJabatan.getSelectedItem() == "Manager") {
@@ -274,7 +299,6 @@ public class Ui extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxJabatanActionPerformed
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
-        System.out.println("Hello");
         String nip = textFieldNIP.getText();
         String name = textFieldNama.getText();
         String jabatan = comboBoxJabatan.getSelectedItem().toString();
@@ -286,6 +310,53 @@ public class Ui extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tableGaji.getModel();
         model.addRow(row);
     }//GEN-LAST:event_buttonSaveActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void tableGajiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableGajiMouseClicked
+        int selectedRow = tableGaji.getSelectedRow();
+        TableModel model = tableGaji.getModel();
+
+        String nip = model.getValueAt(selectedRow, NIP_COLUMN).toString();
+        String nama = model.getValueAt(selectedRow, NAMA_COLUMN).toString();
+        String jabatan = model.getValueAt(selectedRow, JABATAN_COLUMN).toString();
+        String gajiPokok = model.getValueAt(selectedRow, GAJI_POKOK_COLUMN).toString();
+        String transport = model.getValueAt(selectedRow, TRANSPORT_COLUMN).toString();
+        String gajiBersih = model.getValueAt(selectedRow, GAJI_BERSIH_COLUMN).toString();
+        
+        textFieldNIP.setText(nip);
+        textFieldNama.setText(nama);
+        comboBoxJabatan.setSelectedItem(jabatan);
+        textFieldGajiPokok.setText(gajiPokok);
+        textFieldTransport.setText(transport);
+        textFieldGajiBersih.setText(gajiBersih);
+    }//GEN-LAST:event_tableGajiMouseClicked
+
+    private void buttonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResetActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tableGaji.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_buttonResetActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+        int selectedRow = tableGaji.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tableGaji.getModel();
+        
+        String nip = textFieldNIP.getText();
+        String name = textFieldNama.getText();
+        String jabatan = comboBoxJabatan.getSelectedItem().toString();
+        String gajiPokok = textFieldGajiPokok.getText();
+        String transport = textFieldTransport.getText();
+        String gajiBersih = textFieldGajiBersih.getText();
+        
+        model.setValueAt(nip, selectedRow, NIP_COLUMN);
+        model.setValueAt(name, selectedRow, NAMA_COLUMN);
+        model.setValueAt(jabatan, selectedRow, JABATAN_COLUMN);
+        model.setValueAt(gajiPokok, selectedRow, GAJI_POKOK_COLUMN);
+        model.setValueAt(transport, selectedRow, TRANSPORT_COLUMN);
+        model.setValueAt(gajiBersih, selectedRow, GAJI_BERSIH_COLUMN);
+    }//GEN-LAST:event_buttonUpdateActionPerformed
 
     /**
      * @param args the command line arguments
